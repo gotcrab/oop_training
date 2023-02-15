@@ -14,16 +14,54 @@ class Person:
         print("Delete name")
         del self._name
 
-    namename = property(
+    somecomand = property(
         fget=_get_name,
         fset=_set_name,
         fdel=_del_name,
-        doc="Чё либо"
+        doc="работа обычного Property без декоратора"
     )
 
-pers = Person('Вася')
-print(pers.namename)
-pers.namename = 'Kkkk'
-print(pers.namename)
+vasya = Person('Вася')
+print(vasya.somecomand)
+vasya.somecomand = 'Василий'
+print(vasya.somecomand)
+del vasya.somecomand
+vasya.somecomand = 'VasIsDas'
+print(vasya.somecomand)
+print(help(vasya))
+print('=' * 45)
+print('=' * 45)
 
-print(help(pers))
+
+class SecPerson:
+    def __init__(self, name, age):
+        self._name = name
+        self._age = age
+
+    @property
+    def name(self):
+        print("работа Проперти с декоратором")
+        return self._name
+
+    @name.setter
+    def name(self, n):
+        self._name = n
+        print('сеттер имени с декоратором, теперь это', self._name)
+
+    @name.deleter
+    def name(self):
+        print(f'Имя {self._name} удалено')
+        del self._name
+
+    @property
+    def age(self):
+        print("работа Проперти с декоратором")
+        return self._age
+
+halk = SecPerson('IAMHULK', 40)
+
+print(halk.age)
+print(halk.name)
+halk.name = 'Володя'
+print(halk.name)
+del halk.name
