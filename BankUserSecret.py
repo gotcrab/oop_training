@@ -4,7 +4,8 @@ from string import digits
 class BankUser:
     '''create a bank user with a login and a password.
     Check user's password for length, digit inside and belonging to string'''
-    def __init__(self, log, pas):
+
+    def __init__(self, log: str, pas: str) -> None:
         self.login = log
         self.password = pas
         # this is already the setter!
@@ -13,7 +14,7 @@ class BankUser:
         self.__secret_message = 'WORLD LOVE YOU <3'
 
     @property
-    def secret(self):
+    def secret(self) -> str:
         '''
         Check access to the secret message.
         If your password correct, your will seen the secret)
@@ -25,20 +26,19 @@ class BankUser:
         else:
             raise ValueError('Alarm! Access DENIED!')
 
-
     @property
-    def password(self):
+    def password(self) -> str:
         print('this is getter')
         return self.__password
 
     @staticmethod
-    def is_dig_inside(pswrd):
+    def is_dig_inside(pswrd: str) -> bool:
         '''
         we can create it outside the class BankUser.
         But also can create it here.
         If we create it here, we need to use staticmetod,
         cause this function will be take only 1 argument - password
-        oh, ye, it's docstring)
+        oh, ye, it's a docstring)
         check digits inside a password
         '''
         for i in pswrd:
@@ -46,8 +46,17 @@ class BankUser:
                 return True
         return False
 
+    @staticmethod
+    def mpp(pswrd: str) -> bool:
+        'check the most common passwords'
+        with open('pass_for_BankUserSecret.txt') as p_file:
+            for i in p_file:
+                if pswrd == i.strip():
+                    return True
+            return False
+
     @password.setter
-    def password(self, newpas):
+    def password(self, newpas: str) -> None:
         'just setter with some checks'
         print('setter is working')
         if not isinstance(newpas, str):
@@ -58,15 +67,17 @@ class BankUser:
             raise ValueError('password is too long, maximum 12 characters needs')
         if not BankUser.is_dig_inside(newpas):
             raise ValueError('password must have minimum 1 digit')
-        # if newpas in
+        if BankUser.mpp(newpas):
+            raise ValueError('your password is in most common passwords, please change it')
+
         self.__password = newpas
         print('password was changed')
 
 
-firstman = BankUser('Ivan', 'gggdf0')
+firstman = BankUser('Ivan', 'qwerty123456')
 print(firstman.password)
 firstman.password = '1rtyutyui'
 print(firstman.password)
-firstman.password = 'Qwerty1234'
+firstman.password = 'Qwerty12f34'
 
 print(firstman.secret)
