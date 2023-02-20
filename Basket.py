@@ -5,9 +5,10 @@ class File:
         self.is_deleted = is_deleted
 
     def restore_from_trash(self):
-        self.in_trash = False
-        Trash.content.remove(self.name) # may be not self.name
-        print(f'Файл {self.name} восстановлен из корзины')
+        if self in Trash.content:
+            self.in_trash = False
+            Trash.content.remove(self.name) # may be not self.name
+            print(f'Файл {self.name} восстановлен из корзины')
 
     def remove(self):
         if self in Trash.content:
@@ -44,7 +45,10 @@ class Trash:
 
         if isinstance(file, File):
             Trash.content.append(file)
+            # print(f'file.in_trash = {file.in_trash}')
             file.in_trash = True
+            file.is_deleted = True
+            # print(f'file.in_trash = {file.in_trash}')
 
         else:
             print('В корзину добавлять можно только файл')
