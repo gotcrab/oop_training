@@ -10,9 +10,11 @@ class File:
         print(f'Файл {self.name} восстановлен из корзины')
 
     def remove(self):
-        self.is_deleted = True
-        Trash.content.remove(self)
-        print(f'Файл {self.name} был удален')
+        if self in Trash.content:
+            self.is_deleted = True
+            Trash.content.remove(self)
+            print(f'Файл {self.name} был удален')
+
 
     def read(self):
         if self.is_deleted:
