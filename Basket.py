@@ -128,7 +128,8 @@ class Trash:
 
         lst = Trash.content.copy()
         for i in lst:
-            File.restore_from_trash(i)
+            if i in Trash.content:
+                File.restore_from_trash(i)
         if len(Trash.content) == 0:
             print('Корзина пуста')
 
