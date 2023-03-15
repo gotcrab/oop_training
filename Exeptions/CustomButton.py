@@ -1,8 +1,7 @@
 class CustomButton:
     def __init__(self, text: str, **kwargs):
         self.text = text
-        for i, j in kwargs.items():
-            setattr(self, i, j)
+        self.config(**kwargs)
 
     def config(self, **kwargs):
         for i, j in kwargs.items():
