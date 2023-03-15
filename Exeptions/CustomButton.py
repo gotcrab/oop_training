@@ -4,8 +4,7 @@ class CustomButton:
         self.config(**kwargs)
 
     def config(self, **kwargs):
-        for i, j in kwargs.items():
-            setattr(self, i, j)
+        self.__dict__.update(kwargs)
 
     def click(self):
         try:
